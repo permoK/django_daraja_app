@@ -1,0 +1,22 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>STK Push</title>
+</head>
+<body>
+	<form action="{{ stkpush }}" method="post">
+	    {% csrf_token %}
+	<label for="phone">Phone Number</label>
+	<input type="text" name="phone" id="phone" placeholder="2547xxxxxxxx" required>
+	<label for="amount">Amount</label>
+	<input type="number" name="amount" id="amount" placeholder="Amount" required>
+	<input type="submit" value="Submit">
+    </form>
+
+	<h1> Response: {{ response }} </h1><br>
+	<h2> Time: {{ time }} </h2>
+</body>
+</html>
+
+
