@@ -5,12 +5,9 @@
     <title>STK Push</title>
 </head>
 <body>
-	<form action="{{ stkpush }}" method="post">
+	<form method="post">
 	    {% csrf_token %}
-	<label for="phone">Phone Number</label>
-	<input type="text" name="phone" id="phone" placeholder="2547xxxxxxxx" required>
-	<label for="amount">Amount</label>
-	<input type="number" name="amount" id="amount" placeholder="Amount" required>
+	    {{ form.as_p }}
 	<input type="submit" value="Submit">
     </form>
 
