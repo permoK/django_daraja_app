@@ -1,18 +1,28 @@
 
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<meta name="Permo" content="Mpesa">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+	<link rel="icon" href="{% static 'images/favicon.ico' %}">
+
     <title>STK Push</title>
 </head>
 <body>
 	<form method="post">
 	    {% csrf_token %}
 	    {{ form.as_p }}
-	<input type="submit" value="Submit">
+	<input type="submit" value="PayBill">
     </form>
+    {% if response == 200  %}
+	<h4> check your phone for the push notification </h4><br>
+	{% else %}
+	<h1> An error has occured </h1><br>
+	{% endif %}
 
-	<h1> Response: {{ response }} </h1><br>
-	<h2> Time: {{ time }} </h2>
 </body>
 </html>
 

@@ -22,11 +22,12 @@ def auth_token(request):
 def stkpush(request):
 
     def stk(phone, amount):
+
         # Define the URL of the API endpoint
         url = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
+
         # timestamp
         timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
-
         business_shortcode = "174379"
         passkey = "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919"
 
@@ -37,7 +38,7 @@ def stkpush(request):
         "Timestamp": timestamp,
         "TransactionType": "CustomerPayBillOnline",
         "Amount": amount,
-        "PartyA": phone, # replace with your phone number to get stk push
+        "PartyA": phone, 
         "PartyB": business_shortcode,
         "PhoneNumber": phone, 
         "CallBackURL": "https://api.darajambili.com",
@@ -58,7 +59,8 @@ def stkpush(request):
 
         # Send the request using requests.post and store the response
         response = requests.post(url, data=json_data, headers=headers)
-        return response.json()
+        return response.status_code
+        
 
     if request.method == 'POST':
         form = StkpushForm(request.POST)
@@ -72,7 +74,7 @@ def stkpush(request):
             #context = { 'token': token, 'response': response}
             #return render(request, "stkpush.html", context)
 
-            stk = stk(phone=Phone_number, amount= Amount)
+            stk = stk(phone = Phone_number, amount = Amount)
     else:
         form = StkpushForm()
 
