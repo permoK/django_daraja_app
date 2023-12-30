@@ -1,4 +1,4 @@
-
+{% load widget_tweaks %}
 {% load static %}
 <!DOCTYPE html>
 <html>
@@ -14,13 +14,22 @@
 <body>
 	<form method="post">
 	    {% csrf_token %}
-	    {{ form.as_p }}
+	    <div class="form-input">
+	    {% render_field form.phone_number placeholder="Phone" %}
+	    {% render_field form.amount placeholder="Amount" %}
+	    </div>
+
 	<input type="submit" value="PayBill">
     </form>
-    {% if response == 200  %}
-	<h4> check your phone for the push notification </h4><br>
+    <h3> {{response}} </h3>
+    {% if status_code == 200  %}
+    		{% if successMessage %}
+    		<h4>message: {{ successMessage }} </h4><br>
+		{% endif %}
+	{% elif status_code == None %}
+		<p></p>
 	{% else %}
-	<h1> An error has occured </h1><br>
+		<p> message: An error has occurred while processing </p>
 	{% endif %}
 
 </body>

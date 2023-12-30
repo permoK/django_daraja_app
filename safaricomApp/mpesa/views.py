@@ -59,7 +59,7 @@ def stkpush(request):
 
         # Send the request using requests.post and store the response
         response = requests.post(url, data=json_data, headers=headers)
-        return response.status_code
+        return response, response.json()
         
 
     if request.method == 'POST':
@@ -73,12 +73,13 @@ def stkpush(request):
             #response = cl.stk_push(phone_number, amount, account_reference, transaction_desc, callback_url)
             #context = { 'token': token, 'response': response}
             #return render(request, "stkpush.html", context)
-
-            stk = stk(phone = Phone_number, amount = Amount)
+            if Phone_number is not None and Amount is not None:
+                stk = stk(phone = Phone_number, amount = Amount)
+           
+                context = { "status_code": stk[0].status_code, "successMessage": "stk push sent successfully",  "form":form }
     else:
         form = StkpushForm()
-
-    context = { "response": stk, "form":form }
+        context = { "form":form }
 
     return render(request, "stkpush.html", context)
 

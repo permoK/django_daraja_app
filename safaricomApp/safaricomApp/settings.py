@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-q(_=jk484lb$4#4dvxlg7y55_mk%_vbntef(rs_j!#)rqwx30-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["192.168.43.53"]
+ALLOWED_HOSTS = ["192.168.43.53","127.0.0.1"]
 
 
 # Application definition
@@ -38,6 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'livereload',
     'django.contrib.staticfiles',
+    
+    #add widget_tweaks
+    'widget_tweaks',
+
     #'safaricomApp'
     'django_daraja',
     'mpesa',
