@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A simple HTML5 Boilerplate template">
+      <title>{% block title  %}{% endblock  %}</title>
+      <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+      <link rel='stylesheet' href="{% static 'styles/styles.css '%}">
+ 
+      <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
+
+    {% block styles %}{% endblock %}
+</head>
+<body>
+    <header>
+	    <h1>{% block header  %} {% endblock  %}</h1>
+        <nav class='navlinks'>
+            <ul>
+		{% block navlinks %}
+		
+		{% endblock  %}
+            </ul>
+        </nav>
+    </header>
+    <main>
+	<div class="heading"> 
+	    {% block heading %}{% endblock %} 
+	</div>
+	    {% block body %}
+
+	    {% endblock  %} 
+   
+    </main>
+    <footer>
+        <p>&copy; 2023 Perminus</p>
+    </footer>
+    {% block script %}{% endblock %}
+
+<script src="{% static 'livereload.js' %}"></script>
+</body>
+</html>

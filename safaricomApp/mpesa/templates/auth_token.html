@@ -1,20 +1,13 @@
+{% extends "layout.html" %}
 
-<html>
-<head>
-    <title> Authorization Token </title>
-    	
-</head>
-<body>
+{% block body %}
 	{% if token  %}
 	<h1> Token: {{ token }} </h1><br>
 	{% else %}
-	<h1> Token: N/A </h1>
+		<h1> Token: N/A </h1>
 	{% endif %}
 	<h1> Response: {{ response }} </h1><br>
 	<h3> Time: expires in 1 hour </h3>
-</body>
-</html>
-
-
+{%endblock%}
 
 
