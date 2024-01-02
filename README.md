@@ -11,3 +11,6 @@
 ##### - Mpesa express
 ##### - Dynamic QR
 ##### - B2B express checkout
+
+
+This will basically use the equity bank ke API 
