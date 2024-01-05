@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+
+{% load widget_tweaks %}
+
+{% load static %}
+
+
+{% block body %}
+	<form class="form-container" method="post">
+	    {% csrf_token %}
+	    <div class="form-input">
+	    {% render_field form.phone_number placeholder="254-xxxxxx"   class="input-field" %}
+
+	    {% render_field form.amount placeholder="Amount" class="input-field" hx-post="/check_balance/"  hx-trigger="keyup changed delay:1s" hx-target="#balance"  %}
+	    </div>
+
+		<input type="submit" value="PayBill" >
+    </form>
+	<div id="balance"></div>
+    <h3> {{response}} </h3>
+    {% if status_code == 200  %}
+    		{% if successMessage %}
+    		<h4>message: {{ successMessage }} </h4><br>
+		{% endif %}
+	{% elif status_code == None %}
+		<p></p>
+	{% else %}
+		<p> message: An error has occurred while processing </p>
+	{% endif %}
+{% endblock %}
+

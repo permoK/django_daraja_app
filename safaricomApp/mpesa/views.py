@@ -2,7 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponse, request
 from django.views.decorators.csrf import csrf_exempt
 from django_daraja.mpesa.core import MpesaClient
-from .forms import StkpushForm
+from .forms import StkpushForm, loginForm, registerForm
+
+from django.contrib.auth.decorators import login_required
 
 import requests
 import json
@@ -14,12 +16,17 @@ cl = MpesaClient()
 token = cl.access_token()
 
 # Create your views here.
+def home(request):
+    return render(request, "home.html")
+
+
+
 def auth_token(request):
     context = { 'token': token }
     return render(request, "auth_token.html", context)
 
 
-def stkpush(request):
+def payment(request):
 
     def stk(phone, amount):
 
@@ -59,7 +66,7 @@ def stkpush(request):
 
         # Send the request using requests.post and store the response
         response = requests.post(url, data=json_data, headers=headers)
-        return response, response.json()
+        return response, response.json(), amount
         
 
     if request.method == 'POST':
@@ -67,19 +74,55 @@ def stkpush(request):
         if form.is_valid():
             Phone_number = form.cleaned_data['phone_number']
             Amount = form.cleaned_data['amount']
-            # account_reference = form.cleaned_data['account_reference']
-            # transaction_desc = form.cleaned_data['transaction_desc']
-            # callback_url = 'https://api.darajambili.com/express-payment'
-            #response = cl.stk_push(phone_number, amount, account_reference, transaction_desc, callback_url)
-            #context = { 'token': token, 'response': response}
-            #return render(request, "stkpush.html", context)
             if Phone_number is not None and Amount is not None:
                 stk = stk(phone = Phone_number, amount = Amount)
            
-                context = { "status_code": stk[0].status_code, "successMessage": "stk push sent successfully",  "form":form }
+                context = { "status_code": stk[0].status_code, "successMessage": f"stk push sent successfully to pay Ksh.{Amount}",  "form":form }
     else:
         form = StkpushForm()
         context = { "form":form }
 
-    return render(request, "stkpush.html", context)
+    return render(request, "payment.html", context)
+
+def check_balance(request):
+    money = 100
+    amount = request.POST.get('amount')
+    if amount is not None and amount != '':
+        if int(amount) < 0:
+            return HttpResponse(f"<div style='color: orange;'>balance:{money}</div>")
+        else:    
+            money = money - int(amount)
+            return HttpResponse(f"<div style='color: green;'>balance:{money}</div>")
+    else:
+        return HttpResponse(f"<div style='color: orange;'>balance:{money}</div>")
+
+
+def login(request):
+    if request.method == 'POST':
+        form = loginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+        # check if user exists
+        # if user exists, check if password is correct
+        # if password is correct, login user
+        # else return error message
+        # else return error message
+        
+    else:
+        form = loginForm()
+        context = { "form":form }
+    return render(request, "login.html")
+
+
+def register(request):
+    if request.method == 'POST':
+        form = registerForm(request.POST)
+        if form.is_valid():
+           form.save()
+    else:
+        form = registerForm()
+        context = { "form":form }
+    return render(request, "register.html", context)
+
 

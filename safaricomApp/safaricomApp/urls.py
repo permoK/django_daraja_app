@@ -21,3 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls), # admin url
     path('', include('mpesa.urls')), # app url
 ]
+
+
