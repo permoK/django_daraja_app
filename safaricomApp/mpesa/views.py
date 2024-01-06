@@ -3,6 +3,7 @@ from django.http import HttpResponse, request
 from django.views.decorators.csrf import csrf_exempt
 from django_daraja.mpesa.core import MpesaClient
 from .forms import StkpushForm, loginForm, registerForm
+from django.contrib.auth import authenticate, login
 
 from django.contrib.auth.decorators import login_required
 
@@ -98,21 +99,18 @@ def check_balance(request):
 
 
 def login(request):
+    form = loginForm()
     if request.method == 'POST':
-        form = loginForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-        # check if user exists
-        # if user exists, check if password is correct
-        # if password is correct, login user
-        # else return error message
-        # else return error message
-        
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+    if user is not None:
+        login(request, user)
+        return Redirect('home')
     else:
-        form = loginForm()
-        context = { "form":form }
-    return render(request, "login.html")
+        return HttpResponse("Invalid login details supplied.")
+    context = { "form":form }
+    return render(request, "login.html", context)
 
 
 def register(request):
