@@ -1,6 +1,27 @@
 {% extends 'layout.html' %}
 {% load static %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'styles/home.css' %}">
+{% endblock %}
+
+{% block title %}Home{% endblock %}
+
 {% block body %}
+{% for message in messages %}
+	{% if "success" in message.tags %}
+	    <span style="color: green; top: 10%;">{{ message }}</span>
+	{% else %}
+	    <span style="color: red; top: 10%;">{{ message }}</span>
+	{% endif %}
+    {% endfor %}	
     <h1>Home</h1>
+
+    {% if user.is_authenticated %}
+	<p>Welcome, {{ user.username }}!</p>
+    {% else %}
+	<p>Welcome, new user!</p>
+    {% endif %}
+    
     <a href="{% url 'logout' %}">Logout</a>
 {% endblock %}

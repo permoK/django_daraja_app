@@ -8,11 +8,14 @@
 {% endblock %}
 {% block body %}
     <h1>login</h1>
-	{% if message %}
-    		<div class="alert alert-success" role="alert">
-       	 		{{ message }}
-   		</div>
-	{% endif %}
+	{% for message in messages %}
+		{% if "success" in message.tags %}
+        		<span style="color: green; top: 10%;">{{ message }}</span>
+    		{% else %}
+        		<span style="color: red; top: 10%;">{{ message }}</span>		
+		{% endif %}
+
+        {% endfor %}
 	<form action="{% url 'login' %}" method="post">
 		{% csrf_token %}
 		{{ form.as_p }}

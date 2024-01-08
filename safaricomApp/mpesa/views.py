@@ -21,7 +21,8 @@ token = cl.access_token()
 # Create your views here.
 @login_required(login_url='login')
 def home(request):
-    return render(request, "home.html")
+    message = messages.get_messages(request)
+    return render(request, "home.html", {'message':message})
 
 
 
@@ -113,11 +114,11 @@ def login_view(request):
             if user is not None:
                 login(request, user)
                 # Redirect to a success page or home page
+                messages.success(request, 'log in success.') 
                 return redirect('home')
             else:
                 # Invalid login
-                form.add_error(None, 'Invalid login credentials')
-   
+                messages.error(request, 'Invalid username or password.')   
     message = messages.get_messages(request)
     return render(request, 'login.html', {'form': form,'message':message})
         
@@ -132,6 +133,7 @@ def register(request):
         form = CreateUserForm(request.POST)
         if form.is_valid():
            form.save()
+           messages.success(request, 'Account was created successfully')
            return redirect('login')
     else:
         form = CreateUserForm()
