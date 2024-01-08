@@ -8,9 +8,14 @@
 {% endblock %}
 {% block body %}
     <h1>login</h1>
-    <form action="{% url 'login' %}" method="post">
-	{% csrf_token %}
-	{{ form.as_p }}
+	{% if message %}
+    		<div class="alert alert-success" role="alert">
+       	 		{{ message }}
+   		</div>
+	{% endif %}
+	<form action="{% url 'login' %}" method="post">
+		{% csrf_token %}
+		{{ form.as_p }}
 	<input type="submit" value="login">
     </form>
     <a href="{% url 'register' %}">register</a>

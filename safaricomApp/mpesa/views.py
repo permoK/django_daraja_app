@@ -3,7 +3,9 @@ from django.http import HttpResponse, request
 from django.views.decorators.csrf import csrf_exempt
 from django_daraja.mpesa.core import MpesaClient
 from .forms import StkpushForm, loginForm, CreateUserForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
+from django.shortcuts import redirect
 
 from django.contrib.auth.decorators import login_required
 
@@ -17,6 +19,7 @@ cl = MpesaClient()
 token = cl.access_token()
 
 # Create your views here.
+@login_required(login_url='login')
 def home(request):
     return render(request, "home.html")
 
@@ -98,18 +101,38 @@ def check_balance(request):
         return HttpResponse(f"<div style='color: orange;'>balance:{money}</div>")
 
 
-def login(request):
+def login_view(request):
+    
     form = loginForm()
-    context = { "form":form }
-    return render(request, "login.html", context)
-
-
+    if request.method == 'POST':
+        form = loginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                # Redirect to a success page or home page
+                return redirect('home')
+            else:
+                # Invalid login
+                form.add_error(None, 'Invalid login credentials')
+   
+    message = messages.get_messages(request)
+    return render(request, 'login.html', {'form': form,'message':message})
+        
+def logout_view(request):
+    logout(request)
+    messages.success(request, 'You have been successfully logged out.')
+    return redirect('login')
+   
 def register(request):
     form = CreateUserForm()
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():
            form.save()
+           return redirect('login')
     else:
         form = CreateUserForm()
         context = { "form":form }
