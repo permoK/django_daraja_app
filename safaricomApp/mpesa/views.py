@@ -3,11 +3,13 @@ from django.http import HttpResponse, request
 from django.views.decorators.csrf import csrf_exempt
 from django_daraja.mpesa.core import MpesaClient
 from .forms import StkpushForm, loginForm, CreateUserForm
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib import messages
 from django.shortcuts import redirect
 
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_http_methods
+from .models import MpesaPayment, User
 
 import requests
 import json
@@ -89,18 +91,6 @@ def payment(request):
 
     return render(request, "payment.html", context)
 
-def check_balance(request):
-    money = 100
-    amount = request.POST.get('amount')
-    if amount is not None and amount != '':
-        if int(amount) < 0:
-            return HttpResponse(f"<div style='color: orange;'>balance:{money}</div>")
-        else:    
-            money = money - int(amount)
-            return HttpResponse(f"<div style='color: green;'>balance:{money}</div>")
-    else:
-        return HttpResponse(f"<div style='color: orange;'>balance:{money}</div>")
-
 
 def login_view(request):
     
@@ -136,9 +126,35 @@ def register(request):
            messages.success(request, 'Account was created successfully')
            return redirect('login')
     else:
+        # form error
         form = CreateUserForm()
         context = { "form":form }
-    context = { "form":form }
+    context = { "form":form, "errors":form.errors }
     return render(request, "register.html", context)
 
 
+
+# ajax views
+def check_balance(request):
+    money = 100
+    amount = request.POST.get('amount')
+    if amount is not None and amount != '':
+        if int(amount) < 0:
+            return HttpResponse(f"<div style='color: orange;'>balance:{money}</div>")
+        else:    
+            money = money - int(amount)
+            return HttpResponse(f"<div style='color: green;'>balance:{money}</div>")
+    else:
+        return HttpResponse(f"<div style='color: orange;'>balance:{money}</div>")
+
+@require_http_methods(["POST"])
+def check_username(request):
+    username = request.POST.get('username', None)
+
+    if username is not None and username != '':
+        if get_user_model().objects.filter(username=username).exists():
+            return HttpResponse("<div style='color:red;'>Username already exists</div>")
+        else:
+            return HttpResponse("<div style='color:green;'>Username is available</div>")
+    else:
+        return HttpResponse("None")
