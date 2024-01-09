@@ -8,6 +8,7 @@
 {% endblock %}
 {% block body %}
     <h1>login</h1>
+    <div id="auth_login"></div>
 	{% for message in messages %}
 		{% if "success" in message.tags %}
         		<span style="color: green; top: 10%;">{{ message }}</span>
@@ -16,10 +17,10 @@
 		{% endif %}
 
         {% endfor %}
-	<form action="{% url 'login' %}" method="post">
+	<form  method="post" action="{% url 'login' %}?next={{ request.GET.next }}" >
 		{% csrf_token %}
 		{{ form.as_p }}
-	<input type="submit" value="login">
+	<input type="submit" value="login" >
     </form>
     <a href="{% url 'register' %}">register</a>
 {% endblock %}

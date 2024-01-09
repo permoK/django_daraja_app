@@ -38,28 +38,32 @@
 	  <br>
 
 	  <div class="form-group">
-            {% render_field form.admission_number placeholder="admission number" %}
+            {% render_field form.admission_number placeholder="admission number" hx-post="/check_admission_number/"  hx-trigger="keyup changed delay:1s" hx-target="#check_admission_number"  %}
           </div>
+	  <div id="check_admission_number"></div>
 	  <br>
 
           <div class="form-group">
-            {% render_field form.email placeholder="Email" %}
+            {% render_field form.email placeholder="Email" hx-post="/check_email/"  hx-trigger="keyup changed delay:1s" hx-target="#check_email" %}
           </div>
+	<div id="check_email"></div>
           <br>
 	  <div class="form-group">
-            {% render_field form.phone_number placeholder="phone-254-XXX-XXX" %}
+            {% render_field form.phone_number placeholder="phone-254-XXX-XXX" hx-post="/check_phone_number/"  hx-trigger="keyup changed delay:1s" hx-target="#check_phone_number" %}
           </div>
-          <br>
-
-
-          <div class="form-group">
-            {% render_field form.password1 placeholder="Password" %}
-          </div>
+	<div id="check_phone_number"></div>
           <br>
 
           <div class="form-group">
-            {% render_field form.password2 placeholder="Confirm Password" %}
+            {% render_field form.password1 placeholder="Password" hx-post="/check_password/"  hx-trigger="keyup changed delay:1s" hx-target="#check_password" %}
           </div>
+	<div id="check_password"></div>  
+	<br>
+
+          <div class="form-group">
+            {% render_field form.password2 placeholder="Confirm Password" hx-post="/check_password1/"  hx-trigger="keyup changed delay:1s" hx-target="#check_password1"  %}
+          </div>
+	<div id="check_password1"></div>   
           <br>
 
           <button type="submit" class="btn btn-primary btn-block">Register</button>

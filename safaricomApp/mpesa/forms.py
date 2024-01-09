@@ -30,6 +30,8 @@ class StkpushForm(forms.Form):
 class loginForm(forms.Form):
     username = forms.CharField(max_length=12)
     password = forms.CharField(max_length=12)
-
+    
+    class Meta:
+        fields = ["username", "password"]
 
 

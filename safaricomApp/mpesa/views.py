@@ -16,6 +16,7 @@ import json
 import base64
 from datetime import datetime
 import time
+import re
 
 cl = MpesaClient()
 token = cl.access_token()
@@ -32,7 +33,7 @@ def auth_token(request):
     context = { 'token': token }
     return render(request, "auth_token.html", context)
 
-
+@login_required(login_url='login')
 def payment(request):
 
     def stk(phone, amount):
@@ -85,6 +86,8 @@ def payment(request):
                 stk = stk(phone = Phone_number, amount = Amount)
            
                 context = { "status_code": stk[0].status_code, "successMessage": f"stk push sent successfully to pay Ksh.{Amount}",  "form":form }
+                if stk[0].status_code == 200:
+                    return redirect('home')
     else:
         form = StkpushForm()
         context = { "form":form }
@@ -105,7 +108,8 @@ def login_view(request):
                 login(request, user)
                 # Redirect to a success page or home page
                 messages.success(request, 'log in success.') 
-                return redirect('home')
+                next_url = request.GET.get('next', 'home')  # 'home' is the default redirect URL
+                return redirect(next_url)
             else:
                 # Invalid login
                 messages.error(request, 'Invalid username or password.')   
@@ -157,4 +161,56 @@ def check_username(request):
         else:
             return HttpResponse("<div style='color:green;'>Username is available</div>")
     else:
-        return HttpResponse("None")
+        return HttpResponse("<div style='color:orange;'>Enter a username to continue</div>")
+
+
+def auth_login(request):
+    return HttpResponse("<div style='color: red;'>invalid username or password </div>")
+    
+
+def check_email(request):
+    if request.method == 'POST':
+        email = request.POST.get('email', None)
+        # check if email format is valid
+        #
+        # Regular expression for a simple email format validation
+        email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+        if re.match(email_regex, email):
+            return HttpResponse("<div style='color: green;'>valid email format </div>")
+        else:
+            return HttpResponse("<div style='color: red;'>invalid email format </div>")
+    return HttpResponse("")
+
+def check_admission_number(request):
+    return HttpResponse("admission number")
+
+def check_phone_number(request):
+    if request.method == 'POST':
+        phone_number = request.POST.get('phone_number', None)
+        # if phone number is not empty
+        if phone_number is not None and phone_number != '':
+            # Check if the phone number starts with '254'
+            # check if phone number format is valid
+            phone_regex = r'^\+?1?\d{9,15}$'
+
+            if phone_number.startswith('254') and re.match(phone_regex, phone_number):
+
+            # Regular expression for a simple phone number format validation
+                           
+                return HttpResponse("<div style='color: green;'>valid phone number format </div>")
+            else:
+                return HttpResponse("<div style='color: red;'>phone number must start with 254 and must be valid </div>")
+        else:
+            return HttpResponse("<div style='color: orange;'>Enter a phone number to continue</div>")
+
+
+    return HttpResponse("phone number")
+
+def check_password1(request):
+    return HttpResponse("password1")
+
+
+def check_password(request):
+    return HttpResponse("password")
+
+
