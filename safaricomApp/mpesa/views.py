@@ -93,10 +93,16 @@ def payment(request):
            
                 context = { "status_code": stk[0].status_code, "successMessage": f"stk push sent successfully to pay Ksh.{Amount}",  "form":form }
                 if stk[0].status_code == 200:
-                    return redirect('home')
-    else:
-        form = StkpushForm()
-        context = { "form":form }
+                        # Update the wallet
+                        wallet = Wallet.objects.get(username=request.user.username)
+                        wallet.amount_paid += stk[2]
+                        wallet.balance -= stk[2]
+                        wallet.save()
+                        return redirect('home')
+
+         
+    form = StkpushForm()
+    context = { "form":form }
 
     return render(request, "payment.html", context)
 
