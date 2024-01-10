@@ -98,6 +98,13 @@ def payment(request):
                         wallet.amount_paid += stk[2]
                         wallet.balance -= stk[2]
                         wallet.save()
+                        # add a call back url to the response then save it to the database and redirect.
+
+                        # save the response to the database
+
+
+                        # send a success message
+                        messages.success(request, f"stk push sent successfully to pay Ksh.{Amount}")
                         return redirect('home')
 
          
