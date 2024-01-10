@@ -2,14 +2,14 @@ from django.shortcuts import render
 from django.http import HttpResponse, request
 from django.views.decorators.csrf import csrf_exempt
 from django_daraja.mpesa.core import MpesaClient
-from .forms import StkpushForm, loginForm, CreateUserForm
+from .forms import StkpushForm, loginForm, CreateUserForm, UserProfileForm
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib import messages
 from django.shortcuts import redirect
 
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods
-from .models import MpesaPayment, User
+from .models import UserProfile, Wallet, User
 
 import requests
 import json
@@ -25,7 +25,9 @@ token = cl.access_token()
 @login_required(login_url='login')
 def home(request):
     message = messages.get_messages(request)
-    return render(request, "home.html", {'message':message})
+    user_profile = UserProfile.objects.get(username=request.user.username)
+
+    return render(request, "home.html", {'message':message, "user_profile":user_profile})
 
 
 
@@ -123,17 +125,23 @@ def logout_view(request):
    
 def register(request):
     form = CreateUserForm()
+    profile_form = UserProfileForm()
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
-        if form.is_valid():
-           form.save()
-           messages.success(request, 'Account was created successfully')
-           return redirect('login')
+        profile_form = UserProfileForm(request.POST)
+        if form.is_valid() and profile_form.is_valid():
+            user = form.save()
+            profile = profile_form.save(commit=False)
+            profile.user = user
+            profile.save()
+            messages.success(request, 'Account was created successfully')
+            return redirect('login')
     else:
         # form error
         form = CreateUserForm()
-        context = { "form":form }
-    context = { "form":form, "errors":form.errors }
+        profile_form = UserProfileForm()
+        context = { "form":form, "profile_form":profile_form }
+    context = { "form":form, "profile_form":profile_form, "errors":form.errors, "errors":profile_form.errors }
     return render(request, "register.html", context)
 
 
@@ -182,7 +190,17 @@ def check_email(request):
     return HttpResponse("")
 
 def check_admission_number(request):
-    return HttpResponse("admission number")
+    if request.method == 'POST':
+        admission_number = request.POST.get('admission_number', None)
+        # if admission number is not empty
+        if admission_number is not None and admission_number != '':
+            #check if admission number exists
+            if get_user_model().objects.filter(admission_number=admission_number).exists():
+                return HttpResponse("<div style='color: red;'>admission number already exists</div>")
+            else:
+                return HttpResponse("<div style='color: green;'>admission number is available</div>")
+        else:
+            return HttpResponse("<div style='color: orange;'>Enter an admission number to continue</div>")
 
 def check_phone_number(request):
     if request.method == 'POST':

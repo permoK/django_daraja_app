@@ -38,7 +38,7 @@
 	  <br>
 
 	  <div class="form-group">
-            {% render_field form.admission_number placeholder="admission number" hx-post="/check_admission_number/"  hx-trigger="keyup changed delay:1s" hx-target="#check_admission_number"  %}
+            {% render_field profile_form.registration_number placeholder="admission number" hx-post="/check_admission_number/"  hx-trigger="keyup changed delay:1s" hx-target="#check_admission_number"  %}
           </div>
 	  <div id="check_admission_number"></div>
 	  <br>
@@ -49,7 +49,7 @@
 	<div id="check_email"></div>
           <br>
 	  <div class="form-group">
-            {% render_field form.phone_number placeholder="phone-254-XXX-XXX" hx-post="/check_phone_number/"  hx-trigger="keyup changed delay:1s" hx-target="#check_phone_number" %}
+            {% render_field profile_form.phone_number placeholder="phone-254-XXX-XXX" hx-post="/check_phone_number/"  hx-trigger="keyup changed delay:1s" hx-target="#check_phone_number" %}
           </div>
 	<div id="check_phone_number"></div>
           <br>

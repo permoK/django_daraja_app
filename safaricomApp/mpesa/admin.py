@@ -2,8 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 
-from .models import MpesaPayment, User
+from .models import Wallet, User, UserProfile
 
-admin.site.register(MpesaPayment)
-admin.site.register(User)
-
+admin.site.register(UserProfile)
+admin.site.register(Wallet)

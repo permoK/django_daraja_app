@@ -1,24 +1,26 @@
 from django import forms
-from .models import MpesaPayment
 
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django  import forms
-
+from .models import UserProfile, Wallet
 
 class CreateUserForm(UserCreationForm):
     email = forms.CharField(required=True, max_length=254)
-    phone_number = forms.IntegerField(required=True)
-    admission_number = forms.IntegerField(required=True)
-
-    # age = forms.IntegerField(max_value=100)
-    # day = forms.IntegerField(max_value=100)
-    # month = forms.IntegerField(max_value=31)
-    # year = forms.IntegerField(max_value=3000)
     class Meta:
         model = User 
-        fields = ["username", "email","admission_number","phone_number", "password1", "password2"]
+        fields = ["username".lower(), "email","password1", "password2"]
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['registration_number', 'email', 'phone_number']
+
+
+class WalletForm(forms.ModelForm):
+    class Meta:
+        model = Wallet
+        fields = ['amount_paid', 'balance']
 
 class StkpushForm(forms.Form):
     phone_number = forms.IntegerField()

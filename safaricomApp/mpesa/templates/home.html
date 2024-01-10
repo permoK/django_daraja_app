@@ -18,7 +18,7 @@
     <h1>Home</h1>
 
     {% if user.is_authenticated %}
-	<p>Welcome, {{ user.username }}!</p>
+    <p>Welcome 😊, {{ user.username }}! {{user_profile.phone_number}}</p>
     {% else %}
 	<p>Welcome, new user!</p>
     {% endif %}
