@@ -7,6 +7,8 @@ from .models import UserProfile, Wallet
 
 class CreateUserForm(UserCreationForm):
     email = forms.CharField(required=True, max_length=254)
+    username = forms.CharField(required=True, max_length=254)
+
     class Meta:
         model = User 
         fields = ["username".lower(), "email","password1", "password2"]
@@ -14,13 +16,13 @@ class CreateUserForm(UserCreationForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ['registration_number', 'email', 'phone_number']
+        fields = ['registration_number', 'email', 'phone_number','username']
 
 
 class WalletForm(forms.ModelForm):
     class Meta:
         model = Wallet
-        fields = ['amount_paid', 'balance']
+        fields = ['amount_paid', 'balance','username']
 
 class StkpushForm(forms.Form):
     phone_number = forms.IntegerField()

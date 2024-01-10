@@ -10,9 +10,11 @@ from django.contrib.auth.hashers import make_password
 
 class UserProfile(AbstractUser):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profile')
+    username = models.CharField(max_length=12, unique=True, null=False, blank=False, default=True)
     registration_number = models.CharField(max_length=20, unique=True)
     email = models.EmailField(unique=True, null=False, blank=False, default=True)
     phone_number = models.CharField(max_length=15)
+
     
     groups = models.ManyToManyField(
         "auth.Group",
@@ -30,15 +32,22 @@ class UserProfile(AbstractUser):
     )
 
     def __str__(self):
-        return self.username
-    
-    def __str__(self):
         return f"{self.user.username} - {self.registration_number}"
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        # Check if the user already has a wallet
+        if not hasattr(self, 'wallet'):
+            # Create a new Wallet instance for the user
+            Wallet.objects.create(user=self, username=self.username, amount_paid=0, balance=0)
+
+
 class Wallet(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='wallet')    
-    amount_paid = models.DecimalField(max_digits=10, decimal_places=2)
-    balance = models.DecimalField(max_digits=10, decimal_places=2)
+    user = models.OneToOneField(UserProfile, on_delete=models.CASCADE, related_name='wallet') 
+    username = models.CharField(max_length=12, unique=True, null=False, blank=False, default=True)
+    amount_paid = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     def __str__(self):
         return f"{self.user.username} - Amount Paid: {self.amount_paid}, Balance: {self.balance}"

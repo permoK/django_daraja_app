@@ -25,7 +25,11 @@ token = cl.access_token()
 @login_required(login_url='login')
 def home(request):
     message = messages.get_messages(request)
-    user_profile = UserProfile.objects.get(username=request.user.username)
+    if UserProfile.objects.get(username=request.user.username):
+
+        user_profile = UserProfile.objects.get(username=request.user.username)
+    else:
+        user_profile = "null"
 
     return render(request, "home.html", {'message':message, "user_profile":user_profile})
 
@@ -129,6 +133,7 @@ def register(request):
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         profile_form = UserProfileForm(request.POST)
+
         if form.is_valid() and profile_form.is_valid():
             user = form.save()
             profile = profile_form.save(commit=False)
