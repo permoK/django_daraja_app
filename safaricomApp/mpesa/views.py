@@ -153,7 +153,7 @@ def register(request):
 
 # ajax views
 def check_balance(request):
-    money = 100
+    money = Wallet.objects.get(username=request.user.username).balance
     amount = request.POST.get('amount')
     if amount is not None and amount != '':
         if int(amount) < 0:
