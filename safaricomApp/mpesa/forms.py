@@ -25,15 +25,20 @@ class WalletForm(forms.ModelForm):
         fields = ['amount_paid', 'balance','username']
 
 class StkpushForm(forms.Form):
-    phone_number = forms.IntegerField()
+    # phone_number must start with 254 and be 12 digits long
+    phone_number = forms.CharField(max_length=12)
     amount = forms.IntegerField()
     # account_reference = forms.CharField(max_length=12)
     # transaction_description = forms.CharField(max_length=12)
+
+    class Meta:
+        fields = ["phone_number", "amount"]
+
     pass
 
 class loginForm(forms.Form):
     username = forms.CharField(max_length=12)
-    password = forms.CharField(max_length=12)
+    password = forms.CharField(max_length=12, widget=forms.PasswordInput())
     
     class Meta:
         fields = ["username", "password"]

@@ -16,16 +16,9 @@
     {% block links %}{% endblock %}
 </head>
 <body>
-    <header>
-	    <h1>{% block header  %} {% endblock  %}</h1>
-        <nav class='navlinks'>
-            <ul>
-		{% block navlinks %}
-		
-		{% endblock  %}
-            </ul>
-        </nav>
-    </header>
+	{% block navbar %}
+{% endblock %}
+
     <main>
 	<div class="heading"> 
 	    {% block heading %}{% endblock %} 

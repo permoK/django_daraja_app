@@ -1,7 +1,227 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+:root {
+  --main-bg-color: black;
+  --secondary-bg-color: white;
+  --title-color: #262626;
+  --text-color: white;
+  --font-family: 'Poppins', sans-serif;
+  --font-size: 1rem;
+  --warning-color: #ff0000a3;
+  --border-radius: 0.5rem;
+  --success-color: #00ff00a3;
+  }
 
-body{
-	font-family: 'Poppins', sans-serif;
-	background-color: white;
-	color: black;
+
+
+/* Default styles for all devices */
+body {
+		margin: 0;
+		padding: 0;
+		font-family: var(--font-family);
+		
+		background-color: var(--secondary-bg-color);
+		/*background-image: url('../images/bg.jpg');*/
+		color: var(--text-color);
+		height: 100vh;
+		box-sizing: border-box;
+
+    }
+
+/* Media query for screens with a maximum width of 767 pixels (typical for phones) */
+@media only screen and (max-width: 767px) {
+    body {
+        font-size: 14px;
+    }
+
+    /* Additional styles specific to smaller screens */
+    .header {
+        background-color: #eee;
+    }
+
+    /* Add more styles as needed for smaller screens */
 }
+
+/* Media query for screens with a width between 768 pixels and 991 pixels (typical for tablets) */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    body {
+        font-size: 18px;
+    }
+
+    /* Additional styles specific to medium-sized screens */
+    .sidebar {
+        display: none; /* Hide the sidebar on medium-sized screens */
+    }
+
+    /* Add more styles as needed for medium-sized screens */
+}
+
+/* Media query for screens with a minimum width of 992 pixels (typical for desktops) */
+@media only screen and (min-width: 992px) {
+    body{
+		margin: 0;
+		padding: 0;
+		font-family: var(--font-family);
+		color: var(--text-color);
+		height: 100vh;
+		box-sizing: border-box;
+	}
+
+	.heading{
+		color: white;
+    		background: transparent;
+		border:0px solid #eaeaea;
+    		width: 45rem;
+   		height: 26rem;
+    		justify-content: flex-start;
+    		align-items: center;
+    		display: flex;
+		padding: 0;
+		z-index: 1;
+		backdrop-filter: blur(87px);
+
+	}
+
+	.heading h1{
+		font-size: 2rem;
+		font-weight: 100;
+		padding: 0 1rem;
+	}
+
+	span.h-text-large{
+		font-size: 3rem;
+		font-weight: 100;
+	}
+	span.h-text-small{
+		font-size: 1.0rem;
+		font-weight: 100;
+	}
+
+	main {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		height: 100vh;
+		background-color: var(--main-bg-color);
+		color: var(--text-color);
+		padding: 0 1rem;
+		background-size: cover;
+		background-position: center;
+	}
+	
+	.error_message_box{
+		position: absolute;
+		top: 10%;
+		left: 19%;
+		padding: 2px;
+		border-radius: var(--border-radius);
+		color: var(--text-color);
+		width: 245px;
+		background-color: var(--warning-color);
+		backdrop-filter: blur(10px);
+
+	}
+	.success_message_box{
+		position: absolute;
+		top: 10%;
+		left: 19%;
+		padding: 4px;
+		border-radius: var(--border-radius);
+		color: var(--text-color);
+		width: 188px;
+		background-color: var(--success-color);
+
+	}
+	
+	.neon-light{
+		width: 10rem;
+    		height: 10rem;
+    		background-color: #ff0000;
+    		position: absolute;
+    		z-index: 0;
+		color: white;
+		left: 10%;
+		text-shadow: 0 0 5px #fff,
+		0 0 10px #fff,
+		0 0 20px #fff,
+		0 0 40px #0ff,
+		0 0 80px #0ff,
+		0 0 90px #0ff,
+		0 0 100px #0ff,
+		0 0 150px #0ff;
+
+
+	}
+
+	.form-container {
+	color: var(--text-color);
+	height: 30rem;
+	min-width: 400px;
+	border-radius: 1.25rem;
+	border: 0.5px solid #eaeaea;
+	margin-bottom: 1rem;
+	padding: 0.5rem;
+	display: inline-grid;
+	justify-content: center;
+	align-items: center;
+	transform: translate(-5%, 0%);
+	position: relative;
+	padding: 2 1rem;
+	backdrop-filter: blur(87px);
+	
+
+}
+	
+	#id_username, #id_password{
+		border-radius: 0.5rem;
+		border: 0.5px solid #eaeaea;
+		padding: 0.5rem;
+		margin-bottom: 0.5rem;
+		width: 100%;
+	}
+	
+	input[type=submit]{
+		border-radius: 0.5rem;
+		border: 0.5px solid #eaeaea;
+		padding: 0.5rem;
+		margin-bottom: 0.5rem;
+		width: 100%;
+		background-color: var(lightblue);
+		color: var(--text-color);
+	}
+
+	input[type=submit]:hover{
+		background-color: var(--text-color);
+		color: var(--secondary-bg-color);
+	}
+
+	#id_username:focus, #id_password:focus{
+		outline: none;
+		border: 0.5px solid #eaeaea;
+	}
+
+	input[type=submit]:focus{
+		outline: none;
+		border: 0.5px solid #eaeaea;
+	}
+
+	input[type=submit]:active{
+		outline: none;
+		border: 0.5px solid #eaeaea;
+	}
+
+	input[type='text']{
+		font-size: 1rem;
+		font-weight: 100;
+		font-family: var(--font-family);
+
+	}
+
+
+    
+    .sidebar {
+        display: block; /* Display the sidebar on larger screens */
+    }
+
+    /* Add more styles as needed for larger screens */
+}
+

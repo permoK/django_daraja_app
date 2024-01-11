@@ -1,26 +1,49 @@
 {% extends 'layout.html' %}
 {% load static %}
+{% load widget_tweaks %}
 {% block links %}
 	
       <link rel='stylesheet' href="{% static 'styles/login.css '%}">
       
 
 {% endblock %}
+{% block heading %}
+<h1>We believe <span class='h-text-large'>wellbeing</span> is for everyone. <br>
+	<span class='h-text-small'>sign in to continue to our site</span>.
+</h1>
+{% endblock %}
+
 {% block body %}
-    <h1>login</h1>
-    <div id="auth_login"></div>
 	{% for message in messages %}
 		{% if "success" in message.tags %}
-        		<span style="color: green; top: 10%;">{{ message }}</span>
+		<span class='success_message_box' >{{ message }}</span>
     		{% else %}
-        		<span style="color: red; top: 10%;">{{ message }}</span>		
+        		<span class='error_message_box'>{{ message }}</span>		
+			
 		{% endif %}
 
         {% endfor %}
-	<form  method="post" action="{% url 'login' %}?next={{ request.GET.next|default:'/' }}" >
+		<div class='neon-light'></div>
+	<form class='form-container' method="post" action="{% url 'login' %}?next={{ request.GET.next|default:'/' }}" >
+		<h1>login</h1>
+
 		{% csrf_token %}
-		{{ form.as_p }}
+		<div class='form-field'>
+			<label for="username">username</label>
+			<br>
+			{% render_field form.username  %}
+		</div>
+		<div class='form-field'>
+			<label for="password">password</label>
+			<br>
+			{% render_field form.password %}
+		</div>
+	<a href="">forgot password</a>
+	<br>
 	<input type="submit" value="login" >
+	<br>
+
+	<a href="{% url 'register' %}">register</a>
+
     </form>
-    <a href="{% url 'register' %}">register</a>
-{% endblock %}
+   {% endblock %}
