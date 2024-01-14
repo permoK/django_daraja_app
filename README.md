@@ -14,4 +14,5 @@
 
 1. first we implement safaricom Authentication token.
 2. Implement the mpesa express API(STK push).
+   ##### - This website first implements the stk push then the rest follows.
 3. Implement a school model for payment via bank system and mpesa.This will basically use the equity bank ke API and KCB. But first we will start with Equity bank then KCB bank. 
