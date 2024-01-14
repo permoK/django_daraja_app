@@ -1,14 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
 :root {
-  --main-bg-color: black;
+  --main-bg-color: #ffd0d0;
   --secondary-bg-color: white;
   --title-color: #262626;
-  --text-color: white;
+  --text-color: black;
   --font-family: 'Poppins', sans-serif;
   --font-size: 1rem;
   --warning-color: #ff0000a3;
   --border-radius: 0.5rem;
   --success-color: #00ff00a3;
+  --neon-light-col: #ff6a00;
+  --blur-px: 35px;
   }
 
 
@@ -60,6 +62,7 @@ body {
     body{
 		margin: 0;
 		padding: 0;
+		background-color: var(--main-bg-color);
 		font-family: var(--font-family);
 		color: var(--text-color);
 		height: 100vh;
@@ -67,8 +70,7 @@ body {
 	}
 
 	.heading{
-		color: white;
-    		background: transparent;
+		background: transparent;
 		border:0px solid #eaeaea;
     		width: 45rem;
    		height: 26rem;
@@ -77,7 +79,7 @@ body {
     		display: flex;
 		padding: 0;
 		z-index: 1;
-		backdrop-filter: blur(87px);
+		backdrop-filter: blur(50px);
 
 	}
 
@@ -101,7 +103,7 @@ body {
 		justify-content: flex-start;
 		align-items: center;
 		height: 100vh;
-		background-color: var(--main-bg-color);
+		/*background-color: var(--main-bg-color);*/
 		color: var(--text-color);
 		padding: 0 1rem;
 		background-size: cover;
@@ -117,7 +119,7 @@ body {
 		color: var(--text-color);
 		width: 245px;
 		background-color: var(--warning-color);
-		backdrop-filter: blur(10px);
+		backdrop-filter: blur(var(--blur-px));
 
 	}
 	.success_message_box{
@@ -132,10 +134,11 @@ body {
 
 	}
 	
-	.neon-light{
+	.neon-light_1, .neon-light_2, .neon-light_3{
 		width: 10rem;
     		height: 10rem;
-    		background-color: #ff0000;
+
+    		background-color: var(--neon-light-col);
     		position: absolute;
     		z-index: 0;
 		color: white;
@@ -152,6 +155,45 @@ body {
 
 	}
 
+	.neon-light_2{
+		width: 10rem;
+    		height: 10rem;
+    		background-color: var(--neon-light-col);
+    		position: absolute;
+    		z-index: 0;
+		color: white;
+		left: 55%;
+		top: 12%;
+		text-shadow: 0 0 5px #fff,
+		0 0 10px #fff,
+		0 0 20px #fff,
+		0 0 40px #0ff,
+		0 0 80px #0ff,
+		0 0 90px #0ff,
+		0 0 100px #0ff,
+		0 0 150px #0ff;
+
+
+	}
+	.neon-light_3{
+		width: 10rem;
+    		height: 10rem;
+    		background-color: var(--neon-light-col);
+    		position: absolute;
+    		z-index: 0;
+		color: white;
+		left: 70%;
+		top: 55%;
+		text-shadow: 0 0 5px #fff,
+		0 0 10px #fff,
+		0 0 20px #fff,
+		0 0 40px #0ff,
+		0 0 80px #0ff,
+		0 0 90px #0ff,
+		0 0 100px #0ff,
+		0 0 150px #0ff;
+	}
+
 	.form-container {
 	color: var(--text-color);
 	height: 30rem;
@@ -166,7 +208,7 @@ body {
 	transform: translate(-5%, 0%);
 	position: relative;
 	padding: 2 1rem;
-	backdrop-filter: blur(87px);
+	backdrop-filter: blur(var(--blur-px));
 	
 
 }
