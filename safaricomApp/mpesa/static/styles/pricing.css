@@ -1,0 +1,23 @@
+/* import poppins font from google fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+:root {
+  --background-color: #030407;
+  --text-color: white;
+  --button-background-color: #0A34FD;
+  --button-background-color-inactive: #595A5C;
+  --button-text-color: white;
+  --button-text-color-inactive: #676a72;
+  --card-background-color: #1b1d22;
+  --secondary-text-color: #33AF49;
+  --secondary-text-color-hover: #205B2D;
+  }
+
+body {
+  background-color: var(--background-color);
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.5;
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+}

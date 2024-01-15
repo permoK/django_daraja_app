@@ -6,7 +6,7 @@
   --text-color: black;
   --font-family: 'Poppins', sans-serif;
   --font-size: 1rem;
-  --warning-color: #ff0000a3;
+  --warning-color: #ff4a4a;
   --border-radius: 0.5rem;
   --success-color: #00ff00a3;
   --neon-light-col: #ff6a00;
@@ -188,16 +188,17 @@ body {
 	
 	input[type=submit]{
 		border-radius: 0.5rem;
-		border: 0.5px solid #eaeaea;
+		border: 0.5px solid #d94f19;
 		padding: 0.5rem;
 		margin-bottom: 0.5rem;
 		width: 100%;
-		background-color: var(lightblue);
+		background-color: lightsalmon;
 		color: var(--text-color);
+		text-transform: uppercase;
 	}
 
 	input[type=submit]:hover{
-		background-color: var(--text-color);
+		background-color: #d94f19;
 		color: var(--secondary-bg-color);
 	}
 

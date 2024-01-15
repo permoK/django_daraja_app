@@ -35,9 +35,17 @@ def home(request):
 
 
 
+
 def auth_token(request):
     context = { 'token': token }
     return render(request, "auth_token.html", context)
+
+@login_required(login_url='login')
+def pricing(request):
+    client = MpesaClient()
+    token = client.access_token()
+
+    return render(request, "pricing.html", {'token':token})
 
 @login_required(login_url='login')
 def payment(request):
