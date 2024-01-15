@@ -1,19 +1,54 @@
 {% extends 'layout.html' %}
+
 {% load static %}
+
 {% block title %} Pricing {% endblock %}
 
 {% block links %}
-<link rel='stylesheet' href="{% static 'styles/pricing.css '%}">
+	<link rel='stylesheet' href="{% static 'styles/pricing.css '%}">
 {% endblock %}
 
 {% block body %}
     <div class="container">
 	<div class="row">
 	    <div class="col-md-12">
-		<h1> Pricing </h1>
-		<p> hello world </p>
+		<div class="navbar-container">
+			<div class="logo">
+				logo-image
+			</div>
+			<div class="navbar-content">
+				<ul>
+					<li><a href="#">Account</a></li>
+					<li><a href="#">Subscription</a></li>
+					<li><a href="#">Payment</a></li>
+					<li><a href="#">About</a></li>
+				</ul>
+			</div>
+	<div id="mySidebar" class="sidebar">
+            <!-- Button to close sidebar -->
+            <a href="javascript:void(0)" class="close-btn" onclick="closeNav()">&times;</a>
+            <ul>
+                <li><a href="#">Account</a></li>
+                <li><a href="#">Subscription</a></li>
+                <li><a href="#">Payment</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </div>
+		</div>
+		    <p> hello world </p>
 	    </div>
 	</div>
     </div>
+
+
+ <script>
+        function openNav() {
+            document.getElementById("mySidebar").style.width = "200px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidebar").style.width = "0";
+        }
+    </script>
 {% endblock %}
 

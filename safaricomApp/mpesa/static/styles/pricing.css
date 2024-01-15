@@ -13,6 +13,7 @@
   --secondary-text-color-hover: #205B2D;
   }
 
+/* Default styles for all devices */
 body {
   background-color: var(--background-color);
   font-family: 'Poppins', sans-serif;
@@ -20,4 +21,192 @@ body {
   color: var(--text-color);
   margin: 0;
   padding: 0;
+
+}
+main {
+  /*display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;*/
+  height: 100vh;
+}
+
+.container {
+  /*display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;*/
+  height: 100%;
+}
+
+
+.navbar-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 10vh;
+  background-color: #997fff6b;
+  padding: 0 5%;
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  position: relative;
+}
+
+.navbar-container .logo {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #333;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+        .sidebar a {
+            padding: 8px 16px;
+            text-decoration: none;
+            font-size: 20px;
+            color: white;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            color: #f1f1f1;
+        }
+
+        .sidebar .close-btn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+/* End Default styles for all devices */
+
+/* Start Desktop styles */
+@media (min-width: 768px) {
+
+.navbar-content {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+.navbar-content ul {
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+.navbar-content li {
+	list-style-type: none;
+	margin: 0 22px;
+	padding: 0;
+	}
+
+.navbar-content a {
+            text-decoration: none;
+            color: white;
+	    /*padding: 8px 16px;
+            border: 1px solid white;
+            border-radius: 5px;
+	    background-color: var(--button-background-color);
+            transition: background-color 0.3s, color 0.3s;
+	    cursor: pointer;*/
+        }
+
+.navbar-content a:hover {
+	    color: var(--secondary-text-color-hover);
+	}
+
+.navbar-content .active {
+	    color: var(--secondary-text-color);
+	}
+
+.navbar-content .active:hover {
+	    color: var(--secondary-text-color);
+	}
+
+.navbar-content .button:hover {
+	    background-color: var(--secondary-text-color-hover);
+	}
+
+.navbar-content a:active {
+	    background-color: var(red);
+	}
+
+.navbar-content .button-inactive {
+	    background-color: var(--button-background-color-inactive);
+	    color: var(--button-text-color-inactive);
+	    border: none;
+	    border-radius: 5px;
+	    padding: 10px 20px;
+	    font-size: 1rem;
+	    font-weight: 600;
+	    cursor: pointer;
+	}
+
+.navbar-content .button-inactive:hover {
+	    background-color: var(--secondary-text-color-hover);
+	}
+
+}
+
+/* End Desktop styles */
+
+/* Start Mobile styles */
+@media (max-width: 767px) {
+
+.navbar-content {
+                display: none;
+            }
+
+            .navbar-content.show-sidebar {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                position: fixed;
+                top: 0;
+                right: 0;
+                background-color: #333;
+                width: 200px;
+                height: 100%;
+                padding-top: 60px;
+                z-index: 1;
+            }
+
+            .navbar-content.show-sidebar ul {
+                display: flex;
+                flex-direction: column;
+                margin: 0;
+                padding: 0;
+            }
+
+            .navbar-content.show-sidebar li {
+                margin-left: 0;
+            }
+
+            .navbar-content.show-sidebar a {
+                border: none;
+                margin: 10px 0;
+            }
+
+            .navbar-content.show-sidebar a:hover {
+                background-color: #555;
+            }
 }
