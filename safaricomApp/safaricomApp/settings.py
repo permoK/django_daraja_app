@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-q(_=jk484lb$4#4dvxlg7y55_mk%_vbntef(rs_j!#)rqwx30-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["192.168.43.53","127.0.0.1"]
+ALLOWED_HOSTS = ["192.168.43.53","127.0.0.1","www.codius.com","codius.com"]
 
 
 # Application definition
@@ -55,7 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'livereload.middleware.LiveReloadScript',
+    # 'livereload.middleware.LiveReloadScript',
 ]
 
 ROOT_URLCONF = 'safaricomApp.urls'

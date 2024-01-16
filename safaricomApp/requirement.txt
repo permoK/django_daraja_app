@@ -1,0 +1,6 @@
+python packages:
+
+- django-widget-tweaks
+- django-daraja
+- livereload
+
