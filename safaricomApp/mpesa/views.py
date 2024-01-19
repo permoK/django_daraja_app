@@ -44,8 +44,8 @@ def auth_token(request):
 def pricing(request):
     client = MpesaClient()
     token = client.access_token()
-
-    return render(request, "pricing.html", {'token':token})
+    message = messages.get_messages(request)
+    return render(request, "pricing.html", {'token':token, 'message':message})
 
 @login_required(login_url='login')
 def payment(request):

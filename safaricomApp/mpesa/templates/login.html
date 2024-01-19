@@ -16,7 +16,8 @@
 {% block body %}
 	{% for message in messages %}
 		{% if "success" in message.tags %}
-		<span class='success_message_box' >{{ message }}</span>
+		<span class='success_message_box' id='message' >{{ message }}</span>
+		
     		{% else %}
         		<span class='error_message_box'>{{ message }}</span>		
 			

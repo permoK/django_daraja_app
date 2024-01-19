@@ -33,6 +33,11 @@
     </footer>
     {% block script %}{% endblock %}
 
-<script src="{% static 'livereload.js' %}"></script>
+<script>
+// Automatically hide the div after 5000 milliseconds (5 seconds)
+  setTimeout(function() {
+    document.getElementById('message').style.display = 'none';
+  }, 5000);
+</script>
 </body>
 </html>

@@ -33,9 +33,19 @@
                 <li><a href="#">Payment</a></li>
                 <li><a href="#">About</a></li>
             </ul>
-        </div>
+	</div>
 		</div>
-		    <p> hello world </p>
+		{% for message in messages %}
+		{% if "success" in message.tags %}
+		<span class='success_message_box' id='message' >{{ message }}</span>
+	
+		{% else %}
+			<span class='error_message_box'>{{ message }}</span>		
+		
+	{% endif %}
+
+	{% endfor %}
+
 	    </div>
 	</div>
     </div>

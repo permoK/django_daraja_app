@@ -10,9 +10,9 @@
 {% block body %}
 {% for message in messages %}
 	{% if "success" in message.tags %}
-	    <span style="color: green; top: 10%;">{{ message }}</span>
+	    <span id='message' style="color: green; top: 10%;">{{ message }}</span>
 	{% else %}
-	    <span style="color: red; top: 10%;">{{ message }}</span>
+	    <span id='message' style="color: red; top: 10%;">{{ message }}</span>
 	{% endif %}
     {% endfor %}	
     <h1>Home</h1>
