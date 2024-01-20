@@ -147,7 +147,7 @@ def logout_view(request):
     logout(request)
     messages.success(request, 'logged out successfull.')
     return redirect('login')
-@login_required(login_url='home')  
+  
 def register(request):
     form = CreateUserForm()
     profile_form = UserProfileForm()
